@@ -1,0 +1,13 @@
+<div id="card" *ngIf="agenda">
+  <h1>{{agenda.name}}</h1>
+  <time [dateTime]="agenda.created_at">Created At: {{agenda.created_at | date:'short'}} | </time>
+  <time [dateTime]="agenda.updated_at">Updated At: {{agenda.updated_at | date:'short'}}</time>
+  <p *ngIf="agenda.tasks">
+    <strong>Tasks ({{agenda.tasks.length}}):</strong>
+    <span *ngFor="let task of agenda.tasks; last as isLast">
+      {{task.name}}<span *ngIf="!isLast">,</span>
+    </span>
+  </p>
+  <app-button-default *ngIf="type === 'available'">Assign me</app-button-default>
+  <app-button-default *ngIf="type === 'owned'">Show tasks</app-button-default>
+</div>
