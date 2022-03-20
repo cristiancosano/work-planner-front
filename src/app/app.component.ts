@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
+import { LoadingService } from "@core/services/loading.service";
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,13 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  title = 'work-planner-webapp';
+  public loading: boolean = false;
+  public title = 'work-planner-webapp';
+
+  constructor(private loadingService: LoadingService, private cdr: ChangeDetectorRef){
+    this.loadingService.getStatus$().subscribe(status => this.loading = status);
+  }
+  ngAfterContentChecked(): void {
+    this.cdr.detectChanges();
+  }
 }
